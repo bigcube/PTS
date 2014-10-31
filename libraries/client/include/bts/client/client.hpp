@@ -66,7 +66,13 @@ namespace bts { namespace client {
     struct config
     {
        config( ) :
-          default_peers(vector<string>{"162.243.219.145:", "162.243.219.145:", "162.243.219.145:"}),
+          default_peers(vector<string>{
+#ifdef BTS_TEST_NETWORK
+           "pts-test.seed.quisquis.de:"
+#else
+           "pts.seed.quisquis.de:"
+#endif
+          }),
           mail_server_enabled(false),
           wallet_enabled(true),
           ignore_console(false),
