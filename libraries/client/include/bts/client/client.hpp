@@ -86,9 +86,9 @@ namespace bts { namespace client {
 #else
               uint32_t port = BTS_NET_DEFAULT_P2P_PORT;
 #endif
-              default_peers[0] += fc::to_string( port );
-              default_peers[1] += fc::to_string( port + 100 );
-              default_peers[2] += fc::to_string( port + 200 );
+              for(auto default_peer = default_peers.begin(); default_peer != default_peers.end(); ++default_peer) {
+                *default_peer += fc::to_string( port );
+              }
               logging = fc::logging_config::default_config();
           }
 
@@ -172,6 +172,7 @@ namespace bts { namespace client {
 
        private:
          unique_ptr<detail::client_impl> my;
+         std::vector<fc::ip::endpoint> string_to_endpoints( const string& remote_endpoint );
     };
 
     typedef shared_ptr<client> client_ptr;
